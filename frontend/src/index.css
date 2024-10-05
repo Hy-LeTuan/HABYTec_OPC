@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+	font-family: "Inter", sans-serif;
+}
+
+.bg-main-radial-gradient {
+	background: radial-gradient(circle at center, #334155 0, #040e1b 100%);
+}
