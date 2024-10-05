@@ -1,13 +1,13 @@
-import React from "react";
 import Header from "../Components/Header";
+import Section from "../Components/Section";
 
 function Root() {
 	return (
 		<>
 			<Header />
-			<section className="bg-main-radial-gradient">
+			<Section color={"radial"} className="">
 				<h1 className="text-black">Hello, world</h1>
-			</section>
+			</Section>
 		</>
 	);
 }

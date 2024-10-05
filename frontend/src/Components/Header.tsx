@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 
@@ -7,7 +7,7 @@ function Header() {
 
 	return (
 		<header className="bg-primary py-4 px-16 flex flex-row justify-between items-center w-full">
-			<div className="">
+			<div className="flex flex-row justify-center items-center gap-3">
 				<Link to={"/"}>
 					<img
 						className="w-10 h-10"
@@ -15,8 +15,11 @@ function Header() {
 						alt="white habytec logo"
 					/>
 				</Link>
+				<Link to={"/"} className="text-white font-medium text-base">
+					Habytec
+				</Link>
 			</div>
-			<div className="flex flex-row justify-center items-center gap-7">
+			<div className="flex flex-row justify-center items-center gap-6">
 				<h3 className="text-neutral-400 font-medium text-base hover:text-white transition-colors">
 					<Link to={"/login"}>LOGIN</Link>
 				</h3>

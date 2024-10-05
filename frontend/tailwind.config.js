@@ -8,6 +8,7 @@ export default {
 				primary: "#040E1B",
 				thirtiary: "#334155",
 				secondary: "#F1F1F8",
+				alert: "#F64740",
 			},
 			keyframes: {
 				dash: {
