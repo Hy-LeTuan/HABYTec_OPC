@@ -24,7 +24,7 @@ function Header() {
 					<Link to={"/login"}>LOGIN</Link>
 				</h3>
 				<Link
-					to={"/login"}
+					to={"/register"}
 					onMouseEnter={() => setIsHover(true)}
 					onMouseLeave={() => setIsHover(false)}
 					className="flex flex-row justify-center items-center gap-2 bg-accent px-6 py-1 rounded-lg">

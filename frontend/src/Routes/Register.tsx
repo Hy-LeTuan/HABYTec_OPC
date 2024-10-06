@@ -1,26 +1,34 @@
 import Section from "../Components/Section";
 import FormInputField from "../Components/FormInputField";
 import { FormError, FormErrorStatus, FormInput } from "../constants/types";
-import { safeguardFromWrongEmailFormat } from "../utils/safeguard";
+import {
+	safeguardFromWrongEmailFormat,
+	safeguardFromSpecialChars,
+} from "../utils/safeguard";
 import { Link } from "react-router-dom";
 import { Button } from "@headlessui/react";
-import { FaFacebook } from "react-icons/fa";
 import { ChangeEvent, useState } from "react";
 
-function Login() {
+function Register() {
 	const [errorMessage, setErrorMessage] = useState<FormError>({
 		email: "",
+		username: "",
 		password: "",
+		confirm_password: "",
 	});
 	const [isError, setIsError] = useState<FormErrorStatus>({
 		email: false,
+		username: false,
 		password: false,
+		confirm_password: false,
 	});
 
 	// user login input
-	const [userLoginInput, setUserLoginInput] = useState<FormInput>({
+	const [userRegisterInput, setUserRegisterInput] = useState<FormInput>({
 		email: "",
+		username: "",
 		password: "",
+		confirm_password: "",
 	});
 
 	const notifyError = (
@@ -39,7 +47,7 @@ function Login() {
 		});
 	};
 
-	const onUserLoginInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const onUserRegisterInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const fieldName: string = e.currentTarget.name;
 		const value: string = e.currentTarget.value;
 
@@ -49,10 +57,20 @@ function Login() {
 			} else {
 				notifyError("email", false, "");
 			}
+		} else if (fieldName == "username") {
+			if (safeguardFromSpecialChars(value)) {
+				notifyError(
+					"username",
+					true,
+					"Username cannot contain special characters"
+				);
+			} else {
+				notifyError("username", false, "");
+			}
 		}
 
-		setUserLoginInput({
-			...userLoginInput,
+		setUserRegisterInput({
+			...userRegisterInput,
 			[fieldName]: value,
 		});
 	};
@@ -69,38 +87,59 @@ function Login() {
 						/>
 					</Link>
 					<div className="px-20 py-10 w-[780px] mx-auto border-white/50 border-2 bg-white/5 rounded-lg shadow-md shadow-white/5">
-						<div className="w-full text-center flex flex-col gap-6 justify-center items-center">
+						<div className="w-full text-center flex flex-col gap-8 justify-center items-center">
 							<h1 className="text-white font-medium text-4xl tracking-widest">
-								SIGN IN
+								SIGN UP
 							</h1>
 							<div className="w-full flex flex-col justify-center items-center gap-4">
 								<FormInputField
 									name={"email"}
 									type={"email"}
-									label={"Your Email"}
+									label={"Your email"}
 									placeholder={"Enter your email"}
 									errorMessage={errorMessage["email"]}
 									isError={isError["email"]}
-									onChangeFunction={onUserLoginInputChange}
-									value={userLoginInput["email"]}
+									onChangeFunction={onUserRegisterInputChange}
+									value={userRegisterInput["email"]}
+									className={""}
+								/>
+								<FormInputField
+									name={"username"}
+									type={"text"}
+									label={"Your username"}
+									placeholder={"Enter your username"}
+									errorMessage={errorMessage["username"]}
+									isError={isError["username"]}
+									onChangeFunction={onUserRegisterInputChange}
+									value={userRegisterInput["username"]}
 									className={""}
 								/>
 								<FormInputField
 									name={"password"}
 									type={"password"}
-									label={"Your Password"}
+									label={"Your password"}
 									placeholder={"Enter your password"}
 									errorMessage={errorMessage["password"]}
 									isError={isError["password"]}
-									onChangeFunction={onUserLoginInputChange}
-									value={userLoginInput["password"]}
+									onChangeFunction={onUserRegisterInputChange}
+									value={userRegisterInput["password"]}
 									className={""}
 								/>
-							</div>
-							<div className="w-full text-left text-base text-white">
-								<Link to={"/forget-password"}>
-									Forget your password?
-								</Link>
+								<FormInputField
+									name={"confirm_password"}
+									type={"password"}
+									label={"Confirm your password"}
+									placeholder={"Enter your password again"}
+									errorMessage={
+										errorMessage["confirm_password"]
+									}
+									isError={isError["confirm_password"]}
+									onChangeFunction={onUserRegisterInputChange}
+									value={
+										userRegisterInput["confirm_password"]
+									}
+									className={""}
+								/>
 							</div>
 							<Button
 								className={
@@ -110,58 +149,15 @@ function Login() {
 									Sign In
 								</h3>
 							</Button>
-							<div className="w-full text-center text-base text-neutral-400">
-								<p>- Or sign in with -</p>
-							</div>
-							<div className="flex flex-row justify-between w-full items-center">
-								<Button
-									className={
-										"transition-colors flex flex-row justify-center items-center gap-3 px-5 py-2 rounded-md border-white border-[0.5px] hover:bg-white/5"
-									}>
-									<FaFacebook
-										color="#0866FF"
-										className="w-6 h-6"
-									/>
-									<h4 className="text-white text-base">
-										Facebook
-									</h4>
-								</Button>
-								<Button
-									className={
-										"w-40 transition-colors flex flex-row justify-center items-center gap-3 px-5 py-2 rounded-md border-white border-[0.5px] hover:bg-white/5"
-									}>
-									<img
-										src="/src/assets/icons/google_logo.svg"
-										alt="Google icon"
-										className="w-6 h-6"
-									/>
-									<h4 className="text-white text-base">
-										Google
-									</h4>
-								</Button>
-								<Button
-									className={
-										"w-40 transition-colors flex flex-row justify-center items-center gap-3 px-5 py-2 rounded-md border-white border-[0.5px] hover:bg-white/5"
-									}>
-									<img
-										src="/src/assets/icons/apple_logo.svg"
-										alt="Google icon"
-										className="w-6 h-6"
-									/>
-									<h4 className="text-white text-base">
-										Apple
-									</h4>
-								</Button>
-							</div>
 							<div className="w-full text-center text-base">
 								<p>
 									<span className="text-neutral-400">
-										Don't have an account? &gt;{" "}
+										Already have an account? &gt;{" "}
 									</span>
 									<Link
-										to={"/register"}
+										to={"/login"}
 										className="text-accent font-medium">
-										Register here
+										Login here
 									</Link>
 								</p>
 							</div>
@@ -173,4 +169,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default Register;
