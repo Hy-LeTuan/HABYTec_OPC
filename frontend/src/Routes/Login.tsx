@@ -57,6 +57,12 @@ function Login() {
 		});
 	};
 
+	const onUserLoginInputSubmit = async () => {
+		for (let key of Object.keys(userLoginInput)) {
+			console.log(key);
+		}
+	};
+
 	return (
 		<>
 			<Section color={"radial"} className="h-dvh">
@@ -105,7 +111,8 @@ function Login() {
 							<Button
 								className={
 									"transition-colors duration-300 hover:bg-indigo-900 w-full rounded-lg bg-accent shadow-black/10 shadow-md py-3"
-								}>
+								}
+								onClick={onUserLoginInputSubmit}>
 								<h3 className="text-white text-xl font-medium">
 									Sign In
 								</h3>

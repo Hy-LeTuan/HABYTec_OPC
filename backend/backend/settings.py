@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # user installed apps
     "rest_framework",
+    "rest_framework.authtoken",
     "api",
     "user",
     "course",

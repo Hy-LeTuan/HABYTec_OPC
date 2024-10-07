@@ -7,7 +7,7 @@ class UserSerializer(ModelSerializer):
         model = User
         fields = "__all__"
 
-    def validate(self, attrs):
-        password = attrs.password
+    def validate(self, data):
+        password = data.password
         print(f"password in serializer: {password}")
-        return super().validate(attrs)
+        return super().validate(data)
