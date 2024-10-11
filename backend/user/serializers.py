@@ -11,3 +11,15 @@ class UserSerializer(ModelSerializer):
         password = data.password
         print(f"password in serializer: {password}")
         return super().validate(data)
+
+
+class UserSerializerAuthentication(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
+
+    def validate(self, data):
+        username = data.get("username")
+        password = data.get("password")
+
+        return super().validate(data)
