@@ -44,7 +44,7 @@ function FormInputField({
 			/>
 			{isError && (
 				<Description>
-					<p className="text-sm text-alert">{errorMessage}</p>
+					<span className="text-sm text-alert">{errorMessage}</span>
 				</Description>
 			)}
 		</Field>

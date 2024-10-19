@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { FaFacebook } from "react-icons/fa";
 import { ChangeEvent, useState } from "react";
+import axios from "axios";
 
 function Login() {
 	const [errorMessage, setErrorMessage] = useState<FormError>({
@@ -58,8 +59,27 @@ function Login() {
 	};
 
 	const onUserLoginInputSubmit = async () => {
+		const formdata = new FormData();
 		for (let key of Object.keys(userLoginInput)) {
-			console.log(key);
+			if (userLoginInput[key] == "") {
+				notifyError(
+					key,
+					true,
+					`${key[0].toUpperCase() + key.slice(1)} cannot be empty`
+				);
+				return;
+			} else if (isError[key]) {
+				return;
+			} else {
+				formdata.append(key, userLoginInput[key]);
+			}
+		}
+
+		try {
+			const response = axios.post("users/", formdata);
+			console.log(response);
+		} catch (e) {
+			console.log(e);
 		}
 	};
 
