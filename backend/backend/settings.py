@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # user installed apps
     "rest_framework",
     "rest_framework.authtoken",
+    "corsheaders",
     "api",
     "user",
     "course",
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -133,7 +135,13 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# dependencies settings
+# CORS settings
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+# jazzmin settings
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
