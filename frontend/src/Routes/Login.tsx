@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@headlessui/react";
 import { FaFacebook } from "react-icons/fa";
 import { ChangeEvent, useState } from "react";
-import axios from "axios";
+import axiosInstace from "../utils/axios_instance";
 
 function Login() {
 	const [errorMessage, setErrorMessage] = useState<FormError>({
@@ -76,8 +76,12 @@ function Login() {
 		}
 
 		try {
-			const response = axios.post("users/", formdata);
-			console.log(response);
+			const response = await axiosInstace.post("users/", formdata);
+			const data = response?.data;
+
+			if (data) {
+				console.log(data);
+			}
 		} catch (e) {
 			console.log(e);
 		}
